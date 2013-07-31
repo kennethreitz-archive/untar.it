@@ -2,3 +2,4 @@ https://github.com/shazow/composer/tarball/master
 mako
 markdown
 mdx_smartypants
+PyYaml

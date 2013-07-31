@@ -1,0 +1,59 @@
+{
+    "routes": [
+        {
+            "url": "/", 
+            "context": {
+                "title": "Hello"
+            }, 
+            "filters": [
+                "mako"
+            ], 
+            "file": "templates/index.mako"
+        }, 
+        {
+            "url": "/tar.gz/", 
+            "context": {
+                "title": "Hello"
+            }, 
+            "filters": [
+                "filetype"
+            ], 
+            "file": "templates/filetype.mako"
+        }, 
+        {
+            "url": "/tar.bz2/", 
+            "context": {
+                "title": "Hello"
+            }, 
+            "filters": [
+                "filetype"
+            ], 
+            "file": "templates/filetype.mako"
+        }
+    ], 
+    "static": [
+        {
+            "url": "/static", 
+            "file": "static"
+        }
+    ], 
+    "filters": {
+        "mako": {
+            "class": "composer.filters:Mako", 
+            "kwargs": {}
+        }, 
+        "filetype": {
+            "class": "composer.filters:MakoContainer", 
+            "kwargs": {
+                "directories": [
+                    "templates"
+                ], 
+                "template": "filetype.mako"
+            }
+        }, 
+        "markdown": {
+            "class": "composer.filters:Markdown", 
+            "kwargs": {}
+        }
+    }
+}

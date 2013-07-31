@@ -24,13 +24,14 @@ endif
 
 ## Composer
 
-COMPOSER_INDEX=indexer:UntaritIndexer
+index.json: indexer.py templates/
+	python indexer.py > index.json
 
-build: requirements index.json
-	composer build $(COMPOSER_INDEX)
+build: index.json
+	composer build index.json
 
 serve: requirements index.json
-	composer serve $(COMPOSER_INDEX)
+	composer serve indexer:UntaritIndexer
 
 deploy: build
 	s3cmd sync build/ s3://untar.it/
