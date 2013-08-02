@@ -2,9 +2,7 @@
     "routes": [
         {
             "url": "/", 
-            "context": {
-                "title": "Hello"
-            }, 
+            "context": {}, 
             "filters": [
                 "mako"
             ], 
@@ -13,7 +11,7 @@
         {
             "url": "/tar.gz/", 
             "context": {
-                "title": "Hello"
+                "filetype": "tar.gz"
             }, 
             "filters": [
                 "filetype"
@@ -23,7 +21,7 @@
         {
             "url": "/tar.bz2/", 
             "context": {
-                "title": "Hello"
+                "filetype": "tar.bz2"
             }, 
             "filters": [
                 "filetype"
@@ -40,7 +38,11 @@
     "filters": {
         "mako": {
             "class": "composer.filters:Mako", 
-            "kwargs": {}
+            "kwargs": {
+                "directories": [
+                    "templates"
+                ]
+            }
         }, 
         "filetype": {
             "class": "composer.filters:MakoContainer", 

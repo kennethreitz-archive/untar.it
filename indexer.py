@@ -1,25 +1,32 @@
 #!/usr/bin/env python
 
 from composer.index import Index, Route, Static
-from composer.filters import MakoContainer
+from composer.filters import Mako, MakoContainer
 
 
 class UntaritIndex(Index):
 
     def _register_filters(self):
+        self.register_filter('mako', Mako, {'directories': ['templates']})
         self.register_filter('filetype', MakoContainer, {'directories': ['templates'], 'template': 'filetype.mako'})
 
     def _generate_static(self):
         yield Static('/static', 'static')
 
     def _generate_routes(self):
-        context = {'title': 'Hello'}
-
-        yield Route('/', 'templates/index.mako', filters=['mako'], context=context)
-
         # TODO: Pull this from a yaml file or something
-        for filetype in ['tar.gz', 'tar.bz2']:
+        known_types = ['tar.gz', 'tar.bz2']
+
+        yield Route('/', 'templates/index.mako', filters=['mako'], context={
+          'known_types': known_types,
+        })
+
+        for filetype in known_types:
             url = self.absolute_url(filetype + '/')
+            context = {
+              'filetype': filetype,
+              'known_types': known_types,
+            }
             yield Route(url, 'templates/filetype.mako', filters=['filetype'], context=context)
 
 

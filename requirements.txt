@@ -3,3 +3,4 @@ mako
 markdown
 mdx_smartypants
 PyYaml
+werkzeug
